@@ -8,8 +8,15 @@
             "email": "juliobarreraa@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:juliobarreraa/sismomx-library.git"
+        }
+    ],
     "minimum-stability": "stable",
     "require": {
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "codeandomexico/sismomx": "dev-master"
     }
 }

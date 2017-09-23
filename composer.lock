@@ -4,8 +4,44 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f655372c8e6942290a002958f53d40c",
+    "content-hash": "ab55a1786b414b37266321e295d5c597",
     "packages": [
+        {
+            "name": "codeandomexico/sismomx",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/juliobarreraa/sismomx-library.git",
+                "reference": "88142d40a8577c9d23dae84d98e5bcab7e266c58"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/juliobarreraa/sismomx-library/zipball/88142d40a8577c9d23dae84d98e5bcab7e266c58",
+                "reference": "88142d40a8577c9d23dae84d98e5bcab7e266c58",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeandoMexico\\Sismomx\\Core\\": "src\\",
+                    "CodeandoMexico\\Sismomx\\Core\\Tests\\": "tests\\"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Julio B.",
+                    "email": "juliobarreraa@gmail.com"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/juliobarreraa/sismomx-library/tree/master",
+                "issues": "https://github.com/juliobarreraa/sismomx-library/issues"
+            },
+            "time": "2017-09-23 18:10:41"
+        },
         {
             "name": "firebase/php-jwt",
             "version": "v5.0.0",
@@ -694,7 +730,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "codeandomexico/sismomx": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
