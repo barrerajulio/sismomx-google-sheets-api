@@ -1,0 +1,15 @@
+{
+    "name": "codeandomexico/confirmed-news",
+    "description": "Reader and parser from news publish on google docs",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Julio B.",
+            "email": "juliobarreraa@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "google/apiclient": "^2.0"
+    }
+}
