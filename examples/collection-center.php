@@ -43,20 +43,21 @@ $values = $repository->findAllByRange(
 );
 
 $collection = array_map(function ($value) use ($container) {
+    $options = $container->make(\CodeandoMexico\Sismomx\Core\Base\Values::class);
+    $options->setValues($value);
     $value = [
-        CollectionCenterDictionary::URGENCY_LEVEL => $value[0],
-        CollectionCenterDictionary::LOCATION => $value[1],
-        CollectionCenterDictionary::REQUIREMENTS_DETAILS => $value[2],
-        CollectionCenterDictionary::ADDRESS => $value[3],
-        CollectionCenterDictionary::ZONE => $value[4],
-        CollectionCenterDictionary::MAP => $value[5],
-        CollectionCenterDictionary::MORE_INFORMATION => $value[6],
-        CollectionCenterDictionary::UPDATED_AT => $value[7],
-        CollectionCenterDictionary::CONTACT => $value[8]
+        CollectionCenterDictionary::URGENCY_LEVEL => $options->getValue(0),
+        CollectionCenterDictionary::LOCATION => $options->getValue(1),
+        CollectionCenterDictionary::REQUIREMENTS_DETAILS => $options->getValue(2),
+        CollectionCenterDictionary::ADDRESS => $options->getValue(3),
+        CollectionCenterDictionary::ZONE => $options->getValue(4),
+        CollectionCenterDictionary::MAP => $options->getValue(5),
+        CollectionCenterDictionary::MORE_INFORMATION => $options->getValue(6),
+        CollectionCenterDictionary::UPDATED_AT => $options->getValue(7),
+        CollectionCenterDictionary::CONTACT => $options->getValue(8)
     ];
     $factory = $container->make(\CodeandoMexico\Sismomx\Core\Factories\CollectionCenterFactory::class);
     $factory->values->setValues($value);
     return $factory->make();
 }, $values);
 
-var_dump($collection);

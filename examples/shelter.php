@@ -44,18 +44,18 @@ $values = $repository->findAllByRange(
 );
 
 $collection = array_map(function ($value) use ($container) {
+    $options = $container->make(\CodeandoMexico\Sismomx\Core\Base\Values::class);
+    $options->setValues($value);
     $value = [
-        ShelterDictionary::LOCATION => $value[0],
-        ShelterDictionary::RECEIVING => $value[1],
-        ShelterDictionary::ADDRESS => $value[2],
-        ShelterDictionary::ZONE => $value[3],
-        ShelterDictionary::MAP => $value[4],
-        ShelterDictionary::MORE_INFORMATION => $value[5],
-        ShelterDictionary::UPDATED_AT => $value[6]
+        ShelterDictionary::LOCATION => $options->getValue(0),
+        ShelterDictionary::RECEIVING => $options->getValue(1),
+        ShelterDictionary::ADDRESS => $options->getValue(2),
+        ShelterDictionary::ZONE => $options->getValue(3),
+        ShelterDictionary::MAP => $options->getValue(4),
+        ShelterDictionary::MORE_INFORMATION => $options->getValue(5),
+        ShelterDictionary::UPDATED_AT => $options->getValue(6)
     ];
     $factory = $container->make(\CodeandoMexico\Sismomx\Core\Factories\ShelterFactory::class);
     $factory->values->setValues($value);
     return $factory->make();
 }, $values);
-
-var_dump($collection);
