@@ -1,51 +1,85 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+### API - SismoMX News Confirmed
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+#### Endpoints
 
-## About Laravel
+- `api/data/news` (http://ec2-34-223-244-147.us-west-2.compute.amazonaws.com/api/data/news)
+	- Sin filtros
+		- La respuesta del API será la correspondiente a todas las categorias: urgencias, centros, albergues, ofrecimientos, otros.
+		- Nota: El máximo de elementos que se obtendra por cada categoría seran 1000 elementos.
+	- Con filtros
+		- Para aplicar filtros el URI deberá quedar de la siguiente forma: 
+			- `api/data/news?filters={}` donde el valor de la variable `filters` deberá corresponder a la estructura de un json válido, ejemplo:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+			```
+				{
+				  "centros": {
+				    "conditions": [
+				      {
+				        "field": "urgency_level",
+				        "operator": "=",
+				        "value": "alto"
+				      },
+				      {
+				        "field": "created_at",
+				        "operator": ">=",
+				        "value": "2017-09-24"
+				      }
+				    ],
+				    "fields": ['zone', 'map', contact],
+				    "limit": 100
+				  }
+				}
+			```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+			- Del ejemplo anterior el request queda como:
+				`http://ec2-34-223-244-147.us-west-2.compute.amazonaws.com/api/data/news?filters={"centros":{"conditions":[{"field":"urgency_level","operator":"=","value":"alto"},{"field":"created_at","operator":">=","value":"2017-09-24"}],"fields":["zone","map","contact"],"limit":100}}`
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+				- Y se esta indicando que se desea recuperar solo lo relativo a `centros`, aplicando las siguientes condiciones:
+					- Los registros a recuperar en el campo `urgency_level` debera tener un valor `=` a `alto`
+					- Los registros a recuperar en el campo  `created_at` deberá tener un valor `>=` a '2017-09-24'
+					- Notas: 
+						- `field` debe ser un campo existente en la tabla, `operator` debe ser un operador válido para mysql, `value` es el valor que se desea coincida en la búsqueda.
+						- El operador `IN` de mysql no esta soportado
+						- Si se desea utilizar el operador `like` el valor a enviar en `value` debera contener el operador para comparación `%` según se desee la comparación
+				- El índice `fields` sirve para especificar los campos que se desean recuperar, si no se envia o en su defecto se envía como un arreglo vacío, se recuperarán todos los campos que esten en la tabla.
+				- El índice `limit` sirve para especificar el limite de elementos a recuperar cuando se realice la consulta, si no se desea agregar un limite se deberá enviar con un valor de `-1`.
 
-## Learning Laravel
+			- Los pasos anteriores aplican de igual forma para las categorias restantes: urgencias, albergues, ofrecimientos, otros, ejemplo:
+				`http://ec2-34-223-244-147.us-west-2.compute.amazonaws.com/api/data/news?filters={"centros":{"conditions":[{"field":"urgency_level","operator":"=","value":"alto"},{"field":"created_at","operator":">=","value":"2017-09-24"}],"fields":["zone","map","contact"],"limit":100}, "urgencias":{"conditions":[{"field":"brigade_required","operator":"=","value":"NO"},{"field":"created_at","operator":">=","value":"2017-09-24"}],"limit":200}}`
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+				El json donde se indicar los filtros queda como:
+					```
+						{
+						  "centros": {
+						    "conditions": [
+						      {
+						        "field": "urgency_level",
+						        "operator": "=",
+						        "value": "alto"
+						      },
+						      {
+						        "field": "created_at",
+						        "operator": ">=",
+						        "value": "2017-09-24"
+						      }
+						    ],
+						    "fields": ['zone', 'map', contact],
+						    "limit": 100
+						  },
+						  "urgencias": {
+						    "conditions": [
+						      {
+						        "field": "brigade_required",
+						        "operator": "=",
+						        "value": "NO"
+						      },
+						      {
+						        "field": "created_at",
+						        "operator": ">=",
+						        "value": "2017-09-24"
+						      }
+						    ],
+						    "limit": 200
+						  }
+						}
+					```
