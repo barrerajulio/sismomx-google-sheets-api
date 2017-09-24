@@ -44,18 +44,18 @@ $values = $repository->findAllByRange(
 );
 
 $collection = array_map(function ($value) use ($container) {
+    $options = $container->make(\CodeandoMexico\Sismomx\Core\Base\Values::class);
+    $options->setValues($value);
     $value = [
-        SpecificOfferingsDictionary::OFFERING_FROM => $value[0],
-        SpecificOfferingsDictionary::NOTES => $value[1],
-        SpecificOfferingsDictionary::CONTACT => $value[2],
-        SpecificOfferingsDictionary::OFFERING_DETAILS => $value[3],
-        SpecificOfferingsDictionary::MORE_INFORMATION => $value[4],
-        SpecificOfferingsDictionary::UPDATED_AT => $value[5],
-        SpecificOfferingsDictionary::EXPIRES_AT => $value[6]
+        SpecificOfferingsDictionary::OFFERING_FROM => $options->getValue(0),
+        SpecificOfferingsDictionary::NOTES => $options->getValue(1),
+        SpecificOfferingsDictionary::CONTACT => $options->getValue(2),
+        SpecificOfferingsDictionary::OFFERING_DETAILS => $options->getValue(3),
+        SpecificOfferingsDictionary::MORE_INFORMATION => $options->getValue(4),
+        SpecificOfferingsDictionary::UPDATED_AT => $options->getValue(5),
+        SpecificOfferingsDictionary::EXPIRES_AT => $options->getValue(6)
     ];
     $factory = $container->make(\CodeandoMexico\Sismomx\Core\Factories\SpecificOfferingsFactory::class);
     $factory->values->setValues($value);
     return $factory->make();
 }, $values);
-
-var_dump($collection);

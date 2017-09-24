@@ -45,20 +45,21 @@ $values = $repository->findAllByRange(
 );
 
 $helpCollection = array_map(function ($value) use ($container) {
+    $options = $container->make(\CodeandoMexico\Sismomx\Core\Base\Values::class);
+    $options->setValues($value);
     $value = [
-        HelpRequestDictionary::URGENCY_LEVEL => $value[0],
-        HelpRequestDictionary::BRIGADE_REQUIRED => $value[1],
-        HelpRequestDictionary::MOST_IMPORTANT_REQUIRED => $value[2],
-        HelpRequestDictionary::ADMITTED => $value[3],
-        HelpRequestDictionary::NOT_REQUIRED => $value[4],
-        HelpRequestDictionary::ADDRESS => $value[5],
-        HelpRequestDictionary::ZONE => $value[6],
-        HelpRequestDictionary::SOURCE => $value[7],
-        HelpRequestDictionary::UPDATED_AT => $value[8]
+        HelpRequestDictionary::URGENCY_LEVEL => $options->getValue(0),
+        HelpRequestDictionary::BRIGADE_REQUIRED => $options->getValue(1),
+        HelpRequestDictionary::MOST_IMPORTANT_REQUIRED => $options->getValue(2),
+        HelpRequestDictionary::ADMITTED => $options->getValue(3),
+        HelpRequestDictionary::NOT_REQUIRED => $options->getValue(4),
+        HelpRequestDictionary::ADDRESS => $options->getValue(5),
+        HelpRequestDictionary::ZONE => $options->getValue(6),
+        HelpRequestDictionary::SOURCE => $options->getValue(7),
+        HelpRequestDictionary::UPDATED_AT => $options->getValue(8)
     ];
     $factory = $container->make(HelpRequestFactory::class);
     $factory->values->setValues($value);
     return $factory->make();
 }, $values);
 
-var_dump($helpCollection);
