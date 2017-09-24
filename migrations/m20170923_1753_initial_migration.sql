@@ -1,101 +1,137 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+# ************************************************************
+# Sequel Pro SQL dump
+# Versión 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: localhost (MySQL 5.6.35)
+# Base de datos: sismomx
+# Tiempo de Generación: 2017-09-24 17:34:48 +0000
+# ************************************************************
 
--- -----------------------------------------------------
--- Table `sismomx_collection_center`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sismomx_collection_center` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `encodedkey` VARCHAR(255) NOT NULL,
-  `urgency_level` VARCHAR(10) NOT NULL,
-  `location` VARCHAR(255) NOT NULL,
-  `requirement_details` TEXT NULL,
-  `address` VARCHAR(512) NULL,
-  `zone` VARCHAR(255) NOT NULL,
-  `map` VARCHAR(1024) NULL,
-  `more_information` TEXT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME NOT NULL,
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Volcado de tabla sismomx_collection_center
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sismomx_collection_center`;
+
+CREATE TABLE `sismomx_collection_center` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `encoded_key` varchar(255) NOT NULL DEFAULT '',
+  `urgency_level` varchar(10) DEFAULT '',
+  `location` varchar(255) DEFAULT '',
+  `requirements_details` text,
+  `address` varchar(512) DEFAULT NULL,
+  `zone` varchar(255) DEFAULT '',
+  `map` varchar(1024) DEFAULT NULL,
+  `more_information` text,
+  `contact` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Volcado de tabla sismomx_help_requests
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sismomx_help_requests`;
+
+CREATE TABLE `sismomx_help_requests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `encoded_key` varchar(255) NOT NULL DEFAULT '',
+  `urgency_level` varchar(10) NOT NULL,
+  `brigade_required` text NOT NULL,
+  `most_important_required` text NOT NULL,
+  `admitted` text,
+  `not_required` text,
+  `address` varchar(255) NOT NULL,
+  `zone` varchar(255) NOT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Volcado de tabla sismomx_links
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sismomx_links`;
+
+CREATE TABLE `sismomx_links` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `encoded_key` varchar(255) NOT NULL DEFAULT '',
+  `url` varchar(255) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `encodedkey_UNIQUE` (`encodedkey` ASC))
-ENGINE = InnoDB;
+  UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- -----------------------------------------------------
--- Table `sismomx_help_requests`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sismomx_help_requests` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `encodedkey` VARCHAR(255) NOT NULL,
-  `urgency_level` VARCHAR(10) NOT NULL,
-  `brigade_required` VARCHAR(2) NOT NULL,
-  `most_important_required` TEXT NOT NULL,
-  `admitted` TEXT NULL,
-  `not_required` TEXT NULL,
-  `address` VARCHAR(255) NOT NULL,
-  `zone` VARCHAR(255) NOT NULL,
-  `source` VARCHAR(255) NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME NOT NULL,
+
+# Volcado de tabla sismomx_shelters
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sismomx_shelters`;
+
+CREATE TABLE `sismomx_shelters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `encoded_key` varchar(255) NOT NULL DEFAULT '',
+  `location` varchar(255) NOT NULL,
+  `receiving` text,
+  `address` varchar(255) NOT NULL,
+  `zone` varchar(255) NOT NULL,
+  `map` varchar(1024) DEFAULT NULL,
+  `more_information` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `encodedkey_UNIQUE` (`encodedkey` ASC))
-ENGINE = InnoDB;
+  UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- -----------------------------------------------------
--- Table `sismomx_links`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sismomx_links` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `encodedkey` VARCHAR(255) NOT NULL,
-  `link` VARCHAR(255) NOT NULL,
-  `description` TEXT NOT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME NOT NULL,
+
+# Volcado de tabla sismomx_specific_offerings
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sismomx_specific_offerings`;
+
+CREATE TABLE `sismomx_specific_offerings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `encoded_key` varchar(255) NOT NULL DEFAULT '',
+  `offering_from` varchar(255) NOT NULL,
+  `offering_details` text NOT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `notes` text,
+  `more_information` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `expires_at` text,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `encodedkey_UNIQUE` (`encodedkey` ASC))
-ENGINE = InnoDB;
+  UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- -----------------------------------------------------
--- Table `sismomx_shelters`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sismomx_shelters` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `encodedkey` VARCHAR(255) NOT NULL,
-  `location` VARCHAR(255) NOT NULL,
-  `receiving` TEXT NULL,
-  `address` VARCHAR(255) NOT NULL,
-  `zone` VARCHAR(255) NOT NULL,
-  `map` VARCHAR(1024) NULL,
-  `more_information` TEXT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `encodedkey_UNIQUE` (`encodedkey` ASC))
-ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `sismomx_specific_offerings`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sismomx_specific_offerings` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `encodedkey` VARCHAR(255) NOT NULL,
-  `offering_from` VARCHAR(255) NOT NULL,
-  `offering_details` TEXT NOT NULL,
-  `contact` VARCHAR(255) NULL,
-  `notes` TEXT NULL,
-  `more_information` TEXT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME NOT NULL,
-  `expires_at` DATETIME NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `encodedkey_UNIQUE` (`encodedkey` ASC))
-ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
