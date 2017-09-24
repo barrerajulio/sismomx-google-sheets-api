@@ -1,13 +1,26 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "codeandomexico/confirmed-news",
+    "description": "Reader and parser from news publish on google docs",
     "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "Julio B.",
+            "email": "juliobarreraa@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:juliobarreraa/sismomx-library.git"
+        }
+    ],
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "google/apiclient": "^2.0",
+        "codeandomexico/sismomx": "dev-development"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
