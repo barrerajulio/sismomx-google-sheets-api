@@ -17,6 +17,6 @@
     "minimum-stability": "stable",
     "require": {
         "google/apiclient": "^2.0",
-        "codeandomexico/sismomx": "dev-feature/1"
+        "codeandomexico/sismomx": "dev-feature/9"
     }
 }
