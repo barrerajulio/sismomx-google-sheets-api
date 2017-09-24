@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\DB;
  */
 class RefreshReports extends Command
 {
+    const SPREADSHEET_ID = '1mo9czjIQupWSkjyM--_RSusShy-WbHi8w28oBmxeufk';
     const ITEMS = 'items';
     const TABLE = 'table';
     const SOURCE = 'source';
@@ -66,7 +67,7 @@ class RefreshReports extends Command
      */
     protected $reportsSources =  [
         [
-            self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
+            self::SOURCE => self::SPREADSHEET_ID,
             self::TABLE => 'CENTROS DE ACOPIO!A2:I',
             self::RESOLVER => CollectionCenterFactory::class,
             self::RESOLVER_PAYLOAD => CollectionCenterDbMutator::class,
@@ -84,8 +85,8 @@ class RefreshReports extends Command
             ]
         ],
         [
-            self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
-            self::TABLE => 'URGENCIAS Y SOLICITUDES POR ZON!A6:I',
+            self::SOURCE => self::SPREADSHEET_ID,
+            self::TABLE => 'URGENCIAS Y SOLICITUDES POR ZONA!A6:I',
             self::RESOLVER => HelpRequestFactory::class,
             self::RESOLVER_PAYLOAD => HelpRequestDbMutator::class,
             self::RESOLVER_REPOSITORY => HelpRequestRepository::class,
@@ -102,7 +103,7 @@ class RefreshReports extends Command
             ]
         ],
         [
-            self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
+            self::SOURCE => self::SPREADSHEET_ID,
             self::TABLE => 'OTROS ENLACES!A3:B',
             self::RESOLVER => LinkFactory::class,
             self::RESOLVER_PAYLOAD => LinkDbMutator::class,
@@ -113,7 +114,7 @@ class RefreshReports extends Command
             ]
         ],
         [
-            self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
+            self::SOURCE => self::SPREADSHEET_ID,
             self::TABLE => 'ALBERGUES!A2:G',
             self::RESOLVER => ShelterFactory::class,
             self::RESOLVER_PAYLOAD => ShelterDbMutator::class,
@@ -129,7 +130,7 @@ class RefreshReports extends Command
             ]
         ],
         [
-            self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
+            self::SOURCE => self::SPREADSHEET_ID,
             self::TABLE => 'OFRECIMIENTOS ESPECÍFICOS!A4:G',
             self::RESOLVER => SpecificOfferingsFactory::class,
             self::RESOLVER_PAYLOAD => SpecificOfferingsDbMutator::class,

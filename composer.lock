@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/juliobarreraa/sismomx-library.git",
-                "reference": "843a123b1e57741ff7d87ca40d5ba567f04b3e1d"
+                "reference": "a3345b3dacd3a4899f49415a7025eb092135efb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juliobarreraa/sismomx-library/zipball/843a123b1e57741ff7d87ca40d5ba567f04b3e1d",
-                "reference": "843a123b1e57741ff7d87ca40d5ba567f04b3e1d",
+                "url": "https://api.github.com/repos/juliobarreraa/sismomx-library/zipball/a3345b3dacd3a4899f49415a7025eb092135efb8",
+                "reference": "a3345b3dacd3a4899f49415a7025eb092135efb8",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                 "source": "https://github.com/juliobarreraa/sismomx-library/tree/development",
                 "issues": "https://github.com/juliobarreraa/sismomx-library/issues"
             },
-            "time": "2017-09-24 16:06:02"
+            "time": "2017-09-24 19:41:17"
         },
         {
             "name": "container-interop/container-interop",
