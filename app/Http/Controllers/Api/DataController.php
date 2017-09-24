@@ -27,8 +27,11 @@ class DataController extends Controller
     public function news(Request $request)
     {
         try {
-            $requestParams = $request->input('filters');
-            $requestParams = json_decode($requestParams, true);
+            $requestParams = [];
+            if ($request->has('filters')) {
+                $requestParams = $request->input('filters');
+                $requestParams = json_decode($requestParams, true);
+            }
 
             $result = $this->queryService->run($requestParams);
 
