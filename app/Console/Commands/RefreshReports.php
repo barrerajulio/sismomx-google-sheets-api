@@ -13,6 +13,17 @@ use CodeandoMexico\Sismomx\Core\Factories\LinkFactory;
 use CodeandoMexico\Sismomx\Core\Factories\ShelterFactory;
 use CodeandoMexico\Sismomx\Core\Factories\SpecificOfferingsFactory;
 use CodeandoMexico\Sismomx\Core\Interfaces\Repositories\HereWeNeedRepositoryInterface;
+use CodeandoMexico\Sismomx\Core\Mutators\CollectionCenterDbMutator;
+use CodeandoMexico\Sismomx\Core\Mutators\HelpRequestDbMutator;
+use CodeandoMexico\Sismomx\Core\Mutators\LinkDbMutator;
+use CodeandoMexico\Sismomx\Core\Mutators\ShelterDbMutator;
+use CodeandoMexico\Sismomx\Core\Mutators\SpecificOfferingsDbMutator;
+use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\BaseRepository;
+use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\CollectionCenterRepository;
+use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\HelpRequestRepository;
+use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\LinkRepository;
+use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\ShelterRepository;
+use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\SpecificOfferingRepository;
 use CodeandoMexico\Sismomx\Core\Repositories\GoogleSheetsApiV4\HereWeNeedRepositoryGoogleSheetsApiV4;
 use DI\ContainerBuilder;
 use Illuminate\Console\Command;
@@ -27,6 +38,8 @@ class RefreshReports extends Command
     const TABLE = 'table';
     const SOURCE = 'source';
     const RESOLVER = 'resolver';
+    const RESOLVER_PAYLOAD = 'resolver_payload';
+    const RESOLVER_REPOSITORY = 'resolver_repository';
 
     /**
      * The name and signature of the console command.
@@ -55,6 +68,8 @@ class RefreshReports extends Command
             self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
             self::TABLE => 'CENTROS DE ACOPIO!A2:I',
             self::RESOLVER => CollectionCenterFactory::class,
+            self::RESOLVER_PAYLOAD => CollectionCenterDbMutator::class,
+            self::RESOLVER_REPOSITORY => CollectionCenterRepository::class,
             self::ITEMS => [
                 CollectionCenterDictionary::URGENCY_LEVEL => 0,
                 CollectionCenterDictionary::LOCATION => 1,
@@ -71,6 +86,8 @@ class RefreshReports extends Command
             self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
             self::TABLE => 'URGENCIAS Y SOLICITUDES POR ZON!A6:I',
             self::RESOLVER => HelpRequestFactory::class,
+            self::RESOLVER_PAYLOAD => HelpRequestDbMutator::class,
+            self::RESOLVER_REPOSITORY => HelpRequestRepository::class,
             self::ITEMS => [
                 HelpRequestDictionary::URGENCY_LEVEL => 0,
                 HelpRequestDictionary::BRIGADE_REQUIRED => 1,
@@ -87,6 +104,8 @@ class RefreshReports extends Command
             self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
             self::TABLE => 'OTROS ENLACES!A3:B',
             self::RESOLVER => LinkFactory::class,
+            self::RESOLVER_PAYLOAD => LinkDbMutator::class,
+            self::RESOLVER_REPOSITORY => LinkRepository::class,
             self::ITEMS => [
                 LinkDictionary::URL => 0,
                 LinkDictionary::DESCRIPTION => 1,
@@ -96,6 +115,8 @@ class RefreshReports extends Command
             self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
             self::TABLE => 'ALBERGUES!A2:G',
             self::RESOLVER => ShelterFactory::class,
+            self::RESOLVER_PAYLOAD => ShelterDbMutator::class,
+            self::RESOLVER_REPOSITORY => ShelterRepository::class,
             self::ITEMS => [
                 ShelterDictionary::LOCATION => 0,
                 ShelterDictionary::RECEIVING => 1,
@@ -110,6 +131,8 @@ class RefreshReports extends Command
             self::SOURCE => '1e21rEEz89y5hnN4GoqfPVNJ8hQRGOYWMfTjigAuWT8k',
             self::TABLE => 'OFRECIMIENTOS ESPECÍFICOS!A4:G',
             self::RESOLVER => SpecificOfferingsFactory::class,
+            self::RESOLVER_PAYLOAD => SpecificOfferingsDbMutator::class,
+            self::RESOLVER_REPOSITORY => SpecificOfferingRepository::class,
             self::ITEMS => [
                 SpecificOfferingsDictionary::OFFERING_FROM => 0,
                 SpecificOfferingsDictionary::NOTES => 1,
@@ -155,7 +178,14 @@ class RefreshReports extends Command
                 $source[self::SOURCE],
                 $source[self::TABLE]
             );
-            $collection[$source[self::RESOLVER]] = array_map(function ($_value) use ($container, $source, $options) {
+            /** @var BaseRepository $repository */
+            $repository = $container->make($source[self::RESOLVER_REPOSITORY]);
+            $collection[$source[self::RESOLVER]] = array_map(function ($_value) use (
+                $container,
+                $source,
+                $options,
+                $repository
+            ) {
                 $options->setValues($_value);
                 $raw = [];
                 foreach ($source[self::ITEMS] as $key => $position) {
@@ -163,7 +193,14 @@ class RefreshReports extends Command
                 }
                 $factory = $container->make($source[self::RESOLVER]);
                 $factory->values->setValues($raw);
-                return $factory->make();
+                $dto = $factory->make();
+                /** @var  $mutatorPayload */
+                $mutatorPayload = $container->make($source[self::RESOLVER_PAYLOAD], [
+                    'dto' => $dto
+                ]);
+                $payload = $mutatorPayload->toArray();
+                $repository->storeSingleRowFromArray($payload);
+                return  $dto;
             }, $values);
         }
         return $collection;
