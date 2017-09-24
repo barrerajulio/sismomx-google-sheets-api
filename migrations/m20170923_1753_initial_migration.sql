@@ -37,7 +37,7 @@ CREATE TABLE `sismomx_collection_center` (
   `more_information` text,
   `contact` text,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -60,7 +60,7 @@ CREATE TABLE `sismomx_help_requests` (
   `zone` varchar(255) NOT NULL,
   `source` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -77,7 +77,7 @@ CREATE TABLE `sismomx_links` (
   `url` varchar(255) NOT NULL DEFAULT '',
   `description` text NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -99,7 +99,7 @@ CREATE TABLE `sismomx_shelters` (
   `map` varchar(1024) DEFAULT NULL,
   `more_information` text,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -120,7 +120,7 @@ CREATE TABLE `sismomx_specific_offerings` (
   `notes` text,
   `more_information` text,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime NULL,
   `expires_at` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
