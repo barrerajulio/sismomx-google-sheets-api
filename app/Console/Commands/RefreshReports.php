@@ -27,6 +27,7 @@ use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\SpecificOfferingRepository
 use CodeandoMexico\Sismomx\Core\Repositories\GoogleSheetsApiV4\HereWeNeedRepositoryGoogleSheetsApiV4;
 use DI\ContainerBuilder;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class RefreshReports
@@ -173,6 +174,11 @@ class RefreshReports extends Command
         $repository->init();
         $options = $container->make(Values::class);
         $collection = [];
+        DB::table('collection_center')->delete();
+        DB::table('help_requests')->delete();
+        DB::table('links')->delete();
+        DB::table('shelters')->delete();
+        DB::table('specific_offerings')->delete();
         foreach ($this->reportsSources as $source) {
             $values = $repository->findAllByRange(
                 $source[self::SOURCE],
