@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/juliobarreraa/sismomx-library.git",
-                "reference": "0d68af62b501671196af498026f65c82fa708546"
+                "reference": "843a123b1e57741ff7d87ca40d5ba567f04b3e1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juliobarreraa/sismomx-library/zipball/0d68af62b501671196af498026f65c82fa708546",
-                "reference": "0d68af62b501671196af498026f65c82fa708546",
+                "url": "https://api.github.com/repos/juliobarreraa/sismomx-library/zipball/843a123b1e57741ff7d87ca40d5ba567f04b3e1d",
+                "reference": "843a123b1e57741ff7d87ca40d5ba567f04b3e1d",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                 "source": "https://github.com/juliobarreraa/sismomx-library/tree/development",
                 "issues": "https://github.com/juliobarreraa/sismomx-library/issues"
             },
-            "time": "2017-09-24 06:00:55"
+            "time": "2017-09-24 16:06:02"
         },
         {
             "name": "container-interop/container-interop",
@@ -3544,16 +3544,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.21",
+            "version": "5.7.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db"
+                "reference": "10df877596c9906d4110b5b905313829043f2ada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b91adfb64264ddec5a2dee9851f354aa66327db",
-                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/10df877596c9906d4110b5b905313829043f2ada",
+                "reference": "10df877596c9906d4110b5b905313829043f2ada",
                 "shasum": ""
             },
             "require": {
@@ -3622,7 +3622,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-06-21T08:11:54+00:00"
+            "time": "2017-09-24T07:23:38+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
