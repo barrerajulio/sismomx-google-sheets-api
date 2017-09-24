@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.35)
 # Base de datos: sismomx
-# Tiempo de Generación: 2017-09-24 17:34:48 +0000
+# Tiempo de Generación: 2017-09-24 22:26:21 +0000
 # ************************************************************
 
 
@@ -37,7 +37,7 @@ CREATE TABLE `sismomx_collection_center` (
   `more_information` text,
   `contact` text,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -51,16 +51,16 @@ DROP TABLE IF EXISTS `sismomx_help_requests`;
 CREATE TABLE `sismomx_help_requests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `encoded_key` varchar(255) NOT NULL DEFAULT '',
-  `urgency_level` varchar(10) NOT NULL,
-  `brigade_required` text NOT NULL,
-  `most_important_required` text NOT NULL,
+  `urgency_level` varchar(10) DEFAULT '',
+  `brigade_required` text,
+  `most_important_required` text,
   `admitted` text,
   `not_required` text,
-  `address` varchar(255) NOT NULL,
-  `zone` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT '',
+  `zone` varchar(255) DEFAULT '',
   `source` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -77,7 +77,7 @@ CREATE TABLE `sismomx_links` (
   `url` varchar(255) NOT NULL DEFAULT '',
   `description` text NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -99,7 +99,7 @@ CREATE TABLE `sismomx_shelters` (
   `map` varchar(1024) DEFAULT NULL,
   `more_information` text,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -114,13 +114,13 @@ DROP TABLE IF EXISTS `sismomx_specific_offerings`;
 CREATE TABLE `sismomx_specific_offerings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `encoded_key` varchar(255) NOT NULL DEFAULT '',
-  `offering_from` varchar(255) NOT NULL,
-  `offering_details` text NOT NULL,
+  `offering_from` varchar(255) DEFAULT '',
+  `offering_details` text,
   `contact` varchar(255) DEFAULT NULL,
   `notes` text,
   `more_information` text,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NULL,
+  `updated_at` datetime DEFAULT NULL,
   `expires_at` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `encodedkey_UNIQUE` (`encoded_key`)
