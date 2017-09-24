@@ -179,12 +179,12 @@ class RefreshReports extends Command
                 $source[self::TABLE]
             );
             /** @var BaseRepository $repository */
-            $repository = $container->make($source[self::RESOLVER_REPOSITORY]);
+            $repositoryDb = $container->make($source[self::RESOLVER_REPOSITORY]);
             $collection[$source[self::RESOLVER]] = array_map(function ($_value) use (
                 $container,
                 $source,
                 $options,
-                $repository
+                $repositoryDb
             ) {
                 $options->setValues($_value);
                 $raw = [];
@@ -199,7 +199,7 @@ class RefreshReports extends Command
                     'dto' => $dto
                 ]);
                 $payload = $mutatorPayload->toArray();
-                $repository->storeSingleRowFromArray($payload);
+                $repositoryDb->storeSingleRowFromArray($payload);
                 return  $dto;
             }, $values);
         }
