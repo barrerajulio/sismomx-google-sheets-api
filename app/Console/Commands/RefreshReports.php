@@ -109,8 +109,8 @@ class RefreshReports extends Command
             self::RESOLVER_PAYLOAD => LinkDbMutator::class,
             self::RESOLVER_REPOSITORY => LinkRepository::class,
             self::ITEMS => [
-                LinkDictionary::URL => 0,
-                LinkDictionary::DESCRIPTION => 1,
+                LinkDictionary::DESCRIPTION => 0,
+                LinkDictionary::URL => 1,
             ]
         ],
         [
