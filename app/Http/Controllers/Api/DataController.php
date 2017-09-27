@@ -25,6 +25,7 @@ class DataController extends Controller
     }
 
     /**
+     * @Route('api/news')
      * @param Request $request
      * @return mixed
      */

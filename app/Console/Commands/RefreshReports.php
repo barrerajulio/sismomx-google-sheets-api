@@ -175,11 +175,6 @@ class RefreshReports extends Command
         $repository->init();
         $options = $container->make(Values::class);
         $collection = [];
-        DB::table('collection_center')->delete();
-        DB::table('help_requests')->delete();
-        DB::table('links')->delete();
-        DB::table('shelters')->delete();
-        DB::table('specific_offerings')->delete();
         foreach ($this->reportsSources as $source) {
             $values = $repository->findAllByRange(
                 $source[self::SOURCE],
