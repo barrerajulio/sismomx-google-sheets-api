@@ -25,6 +25,7 @@ use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\LinkRepository;
 use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\ShelterRepository;
 use CodeandoMexico\Sismomx\Core\Repositories\Eloquent\SpecificOfferingRepository;
 use CodeandoMexico\Sismomx\Core\Repositories\GoogleSheetsApiV4\HereWeNeedRepositoryGoogleSheetsApiV4;
+use DI\Container;
 use DI\ContainerBuilder;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -131,7 +132,7 @@ class RefreshReports extends Command
         ],
         [
             self::SOURCE => self::SPREADSHEET_ID,
-            self::TABLE => 'OFRECIMIENTOS ESPECÍFICOS!A4:G',
+            self::TABLE => 'OFERTAS ESPECÍFICAS!A4:G',
             self::RESOLVER => SpecificOfferingsFactory::class,
             self::RESOLVER_PAYLOAD => SpecificOfferingsDbMutator::class,
             self::RESOLVER_REPOSITORY => SpecificOfferingRepository::class,
@@ -180,13 +181,10 @@ class RefreshReports extends Command
                 $source[self::SOURCE],
                 $source[self::TABLE]
             );
-            /** @var BaseRepository $repository */
-            $repositoryDb = $container->make($source[self::RESOLVER_REPOSITORY]);
             $collection[$source[self::RESOLVER]] = array_map(function ($_value) use (
                 $container,
                 $source,
-                $options,
-                $repositoryDb
+                $options
             ) {
                 $options->setValues($_value);
                 $raw = [];
@@ -196,14 +194,25 @@ class RefreshReports extends Command
                 $factory = $container->make($source[self::RESOLVER]);
                 $factory->values->setValues($raw);
                 $dto = $factory->make();
+                return  $dto;
+            }, $values);
+            $collectionItems = $collection[$source[self::RESOLVER]];
+            $collectionItems =  array_filter(
+                $collectionItems,
+                function ($dto) {
+                    return $dto->presenter->isValidRecord();
+                }
+            );
+            /** @var BaseRepository $repository */
+            $repositoryDb = $container->make($source[self::RESOLVER_REPOSITORY]);
+            foreach ($collectionItems as $key => $item) {
                 /** @var  $mutatorPayload */
                 $mutatorPayload = $container->make($source[self::RESOLVER_PAYLOAD], [
-                    'dto' => $dto
+                    'dto' => $item
                 ]);
                 $payload = $mutatorPayload->toArray();
                 $repositoryDb->storeSingleRowFromArray($payload);
-                return  $dto;
-            }, $values);
+            }
         }
         return $collection;
     }
