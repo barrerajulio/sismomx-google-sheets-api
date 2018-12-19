@@ -24,6 +24,11 @@ class DataController extends Controller
         $this->queryService = $queryService;
     }
 
+    /**
+     * @Route('api/news')
+     * @param Request $request
+     * @return mixed
+     */
     public function news(Request $request)
     {
         try {
@@ -32,13 +37,16 @@ class DataController extends Controller
                 $requestParams = $request->input('filters');
                 $requestParams = json_decode($requestParams, true);
             }
-
+            if (is_array($requestParams) === false) {
+                $requestParams = [];
+            }
             $result = $this->queryService->run($requestParams);
 
             return Response::json($result);
         } catch (Exception $e) {
             $msg = 'Algo ha ido mal';
             $result = [
+                'status' => 500,
                 'msg' => $msg,
                 'requestParams' => $requestParams
             ];

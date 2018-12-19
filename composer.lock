@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/juliobarreraa/sismomx-library.git",
-                "reference": "a3345b3dacd3a4899f49415a7025eb092135efb8"
+                "reference": "d76e79f09de6f4b2dc788ee2ff347f29c6ec0077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/juliobarreraa/sismomx-library/zipball/a3345b3dacd3a4899f49415a7025eb092135efb8",
-                "reference": "a3345b3dacd3a4899f49415a7025eb092135efb8",
+                "url": "https://api.github.com/repos/juliobarreraa/sismomx-library/zipball/d76e79f09de6f4b2dc788ee2ff347f29c6ec0077",
+                "reference": "d76e79f09de6f4b2dc788ee2ff347f29c6ec0077",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                 "source": "https://github.com/juliobarreraa/sismomx-library/tree/development",
                 "issues": "https://github.com/juliobarreraa/sismomx-library/issues"
             },
-            "time": "2017-09-24 19:41:17"
+            "time": "2017-09-27 03:28:12"
         },
         {
             "name": "container-interop/container-interop",
@@ -447,16 +447,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.26",
+            "version": "v0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "84e5a19a1cbbf7b59c51aee2cb49dbb4ec13f99f"
+                "reference": "a78a34c76ba300d8236979d74f340b815151f893"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/84e5a19a1cbbf7b59c51aee2cb49dbb4ec13f99f",
-                "reference": "84e5a19a1cbbf7b59c51aee2cb49dbb4ec13f99f",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/a78a34c76ba300d8236979d74f340b815151f893",
+                "reference": "a78a34c76ba300d8236979d74f340b815151f893",
                 "shasum": ""
             },
             "require": {
@@ -480,7 +480,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-09-22T00:23:08+00:00"
+            "time": "2017-09-24T00:22:51+00:00"
         },
         {
             "name": "google/auth",
